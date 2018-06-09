@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import pygame
+from sprites.player import Player
 
 #screen settings
 display_width = 800
@@ -13,7 +14,6 @@ white = (255, 255,255)
 turquoise =(0,255,255)
 red =(255,0,0)
 
-
 #initializing pygame & creating window
 pygame.init()
 gameDisplay = pygame.display.set_mode((display_width, display_height))
@@ -21,30 +21,11 @@ pygame.display.set_caption('Pynnis')
 clock = pygame.time.Clock()
 
 
-
-class Player(pygame.sprite.Sprite):
-    racket_height = 20
-    racket_width = 30
-
-    def __init__(self, init_x, init_y):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((self.racket_height, self.racket_width))
-        self.image.fill(red)
-        self.rect = self.image.get_rect()
-        self.rect.centerx = init_x
-        self.rect.bottom = init_y
-
-        #self.racket = pygame.rect.Rect(init_x, init_y, self.racket_width, self.racket_height)
-
-    def update(self):
-        self.rect.bottom = self.rect.bottom
-
 all_sprites = pygame.sprite.Group()
-player1 = Player(display_width / 4, display_height / 2)
-player2 = Player((display_width / 4) * 3, display_height / 2)
+player1 = Player(display_width / 4, display_height / 2, red, pygame.K_a, pygame.K_s)
+player2 = Player((display_width / 4) * 3, display_height / 2, red, pygame.K_k, pygame.K_l)
 all_sprites.add(player1)
 all_sprites.add(player2)
-
 
 
 quitted = False

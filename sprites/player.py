@@ -10,7 +10,7 @@ class Player(pygame.sprite.Sprite):
         self.image.fill(color)
         self.rect = self.image.get_rect()
         self.rect.centerx = init_x
-        self.rect.bottom = (max_y - min_y) / 2
+        self.rect.bottom = min_y + (max_y - min_y) / 2 + self.racket_height / 2
         self.down_key = down_key
         self.up_key = up_key
         self.speedy = 0

@@ -1,7 +1,6 @@
 import pygame
 
 class Field(pygame.sprite.Sprite):
-
     def __init__(self, x, y, width, height, color):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((width, height))

@@ -1,9 +1,10 @@
 #! /usr/bin/env python
 
 import pygame
+import random
 from sprites.player import Player
-from sprites.ball import Ball
 from sprites.field import Field
+from sprites.ball import Ball
 
 #screen settings
 display_width = 800
@@ -28,9 +29,13 @@ PLAYER2_X = FIELD_X + FIELD_WIDTH - 20
 PLAYER_MIN_Y = FIELD_Y
 PLAYER_MAX_Y = FIELD_Y + FIELD_HEIGHT
 
+PLAYER_MIN_X = FIELD_X
+PLAYER_MAX_X = FIELD_X + FIELD_HEIGHT
+
 # initializing pygame & creating window
 pygame.init()
-gameDisplay = pygame.display.set_mode((display_width, display_height))
+screen = pygame.display.set_mode((display_width, display_height))
+background = pygame.Surface(screen.get_size())
 pygame.display.set_caption('Pynnis')
 clock = pygame.time.Clock()
 
@@ -39,9 +44,13 @@ all_sprites = pygame.sprite.Group()
 field = Field(FIELD_X, FIELD_Y, FIELD_WIDTH, FIELD_HEIGHT, green)
 player1 = Player(PLAYER1_X, PLAYER_MIN_Y, PLAYER_MAX_Y, red, pygame.K_a, pygame.K_s)
 player2 = Player(PLAYER2_X, PLAYER_MIN_Y, PLAYER_MAX_Y, red, pygame.K_k, pygame.K_l)
+ball = Ball(field)
+
 all_sprites.add(field)
 all_sprites.add(player1)
 all_sprites.add(player2)
+all_sprites.add(ball)
+
 
 quitted = False
 # Creating game loop
@@ -57,8 +66,8 @@ while not quitted:
     all_sprites.update()
 
     # Fill screen with color and draw sprites on it
-    gameDisplay.fill(sand)
-    all_sprites.draw(gameDisplay)
+    screen.fill(sand)
+    all_sprites.draw(screen)
     pygame.display.update()
 
 pygame.quit()

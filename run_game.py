@@ -18,28 +18,30 @@ green = (109,185,102)
 sand = (242,225,174)
 
 # dimensions
+FIELD_X = 0.1 * display_width
+FIELD_Y = 0.1 * display_height
+FIELD_WIDTH = 0.8 * display_width
+FIELD_HEIGHT = 0.8 * display_height
 
-dimensions = {
-    'X_POSITION_FIELD' : (display_width - 0.8*display_width) / 2,
-    'Y_POSITION_FIELD' : (display_height - 0.8*display_height) / 2,
-    'FIELD_WIDTH' : display_width * 0.8,
-    'FIELD_HEIGHT' : display_height * 0.8,
-}
+PLAYER1_X = FIELD_X + 20
+PLAYER2_X = FIELD_X + FIELD_WIDTH - 20
+PLAYER_MIN_Y = FIELD_Y
+PLAYER_MAX_Y = FIELD_Y + FIELD_HEIGHT
 
-#initializing pygame & creating window
+# initializing pygame & creating window
 pygame.init()
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Pynnis')
 clock = pygame.time.Clock()
 
+# sprites
 all_sprites = pygame.sprite.Group()
-field = Field(dimensions, green)
-player1 = Player(display_width / 4, display_height / 2, dimensions, red, pygame.K_a, pygame.K_s)
-player2 = Player((display_width / 4) * 3, display_height / 2, dimensions, red, pygame.K_k, pygame.K_l)
+field = Field(FIELD_X, FIELD_Y, FIELD_WIDTH, FIELD_HEIGHT, green)
+player1 = Player(PLAYER1_X, PLAYER_MIN_Y, PLAYER_MAX_Y, red, pygame.K_a, pygame.K_s)
+player2 = Player(PLAYER2_X, PLAYER_MIN_Y, PLAYER_MAX_Y, red, pygame.K_k, pygame.K_l)
 all_sprites.add(field)
 all_sprites.add(player1)
 all_sprites.add(player2)
-
 
 quitted = False
 # Creating game loop

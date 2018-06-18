@@ -2,10 +2,10 @@ import pygame
 
 class Ball(pygame.sprite.Sprite):
 
-    def __init__(self, bounds):
+    def __init__(self, bounds_rect):
         pygame.sprite.Sprite.__init__(self)
-        self.bounds = bounds.image.get_rect()
-        print (self.bounds.x)
+        self.bounds_rect = bounds_rect
+        print (self.bounds_rect.x)
 
         self.image = pygame.Surface((30, 30))
         self.image.fill((255, 255, 255))
@@ -27,11 +27,11 @@ class Ball(pygame.sprite.Sprite):
     def checkBounds(self):
         """ bounce on encountering any screen boundary """
 
-        if self.rect.right >= self.bounds.right:
+        if self.rect.right >= self.bounds_rect.right:
             self.dx *= -1
-        if self.rect.left <= self.bounds.left:
+        if self.rect.left <= self.bounds_rect.left:
             self.dx *= -1
-        if self.rect.bottom >= self.bounds.bottom:
+        if self.rect.bottom >= self.bounds_rect.bottom:
             self.dy *= -1
-        if self.rect.top  <= self.bounds.top:
+        if self.rect.top  <= self.bounds_rect.top:
             self.dy *= -1

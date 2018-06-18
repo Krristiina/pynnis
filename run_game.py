@@ -44,7 +44,7 @@ all_sprites = pygame.sprite.Group()
 field = Field(FIELD_X, FIELD_Y, FIELD_WIDTH, FIELD_HEIGHT, green)
 player1 = Player(PLAYER1_X, PLAYER_MIN_Y, PLAYER_MAX_Y, red, pygame.K_a, pygame.K_s)
 player2 = Player(PLAYER2_X, PLAYER_MIN_Y, PLAYER_MAX_Y, red, pygame.K_k, pygame.K_l)
-ball = Ball(field)
+ball = Ball(field.rect)
 
 all_sprites.add(field)
 all_sprites.add(player1)

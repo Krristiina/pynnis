@@ -4,18 +4,18 @@ class Player(pygame.sprite.Sprite):
     racket_height = 50
     racket_width = 10
 
-    def __init__(self, init_x, min_y, max_y, color, down_key, up_key):
+    def __init__(self, init_x, bounds_rect, color, down_key, up_key):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((self.racket_width, self.racket_height))
         self.image.fill(color)
+        self.min_y = bounds_rect.top + self.racket_height
+        self.max_y = bounds_rect.bottom - self.racket_height
         self.rect = self.image.get_rect()
         self.rect.centerx = init_x
-        self.rect.centery = min_y + (max_y - min_y) / 2
+        self.rect.centery = bounds_rect.top + (bounds_rect.bottom - bounds_rect.top) / 2
         self.down_key = down_key
         self.up_key = up_key
         self.speedy = 0
-        self.min_y = min_y + self.racket_height
-        self.max_y = max_y - self.racket_height
 
         #self.racket = pygame.rect.Rect(init_x, init_y, self.racket_width, self.racket_height)
 

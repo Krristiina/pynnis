@@ -16,7 +16,7 @@ class Ball(pygame.sprite.Sprite):
         self.image.fill((0, 0, 0, 0))
 
         # Draw the ball shape
-        pygame.draw.circle(self.image, (0, 0, 255), (self.arc, self.arc), self.arc)
+        pygame.draw.circle(self.image, color, (self.arc, self.arc), self.arc)
         self.rect = self.image.get_rect()
 
         # Initialize position for the ball

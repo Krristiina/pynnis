@@ -1,4 +1,6 @@
-# pypong
+# pynnis
+
+Python Tennis (pong) game
 
 ## requirements
 

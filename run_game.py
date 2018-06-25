@@ -1,9 +1,10 @@
 #! /usr/bin/env python
 
 import pygame
+import random
 from sprites.player import Player
-from sprites.ball import Ball
 from sprites.field import Field
+from sprites.ball import Ball
 
 #screen settings
 display_width = 800
@@ -29,22 +30,23 @@ PLAYER2_X = FIELD_X + FIELD_WIDTH - 20
 PLAYER_MIN_Y = FIELD_Y
 PLAYER_MAX_Y = FIELD_Y + FIELD_HEIGHT
 
-# ball initial position
-BALL_INIT_X = FIELD_X + 30
-BALL_INIT_Y = FIELD_Y + 50
+PLAYER_MIN_X = FIELD_X
+PLAYER_MAX_X = FIELD_X + FIELD_HEIGHT
 
 # initializing pygame & creating window
 pygame.init()
-gameDisplay = pygame.display.set_mode((display_width, display_height))
+screen = pygame.display.set_mode((display_width, display_height))
+background = pygame.Surface(screen.get_size())
 pygame.display.set_caption('Pynnis')
 clock = pygame.time.Clock()
 
 # sprites
 all_sprites = pygame.sprite.Group()
 field = Field(FIELD_X, FIELD_Y, FIELD_WIDTH, FIELD_HEIGHT, green)
-player1 = Player(PLAYER1_X, PLAYER_MIN_Y, PLAYER_MAX_Y, red, pygame.K_a, pygame.K_s)
-player2 = Player(PLAYER2_X, PLAYER_MIN_Y, PLAYER_MAX_Y, red, pygame.K_k, pygame.K_l)
-ball = Ball(BALL_INIT_X, BALL_INIT_Y, black)
+player1 = Player(PLAYER1_X, field.rect, red, pygame.K_a, pygame.K_s)
+player2 = Player(PLAYER2_X, field.rect, red, pygame.K_k, pygame.K_l)
+ball = Ball(field.rect, white)
+
 all_sprites.add(field)
 all_sprites.add(player1)
 all_sprites.add(player2)
@@ -55,6 +57,7 @@ quitted = False
 while not quitted:
     # Speed of game loop defined by frames/second
     clock.tick(frames_per_second)
+    
     # Input processing
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -63,9 +66,15 @@ while not quitted:
     # Update of sprites (graphic elements)
     all_sprites.update()
 
+    # Is goal?
+    if ball.rect.left <= field.rect.left:
+        ball.init_position()
+    elif ball.rect.right >= field.rect.right:
+        ball.init_position()
+
     # Fill screen with color and draw sprites on it
-    gameDisplay.fill(sand)
-    all_sprites.draw(gameDisplay)
+    screen.fill(sand)
+    all_sprites.draw(screen)
     pygame.display.update()
 
 pygame.quit()
